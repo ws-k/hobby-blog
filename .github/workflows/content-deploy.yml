@@ -28,7 +28,7 @@ jobs:
       - name: Build check
         run: npm run build
         env:
-          NEXT_PUBLIC_SITE_URL: https://menslab.kr
+          NEXT_PUBLIC_SITE_URL: https://guynote.com
 
       # Vercel은 main 브랜치 push 시 자동 배포
       # 이 워크플로우는 콘텐츠 변경 시 유효성 검사만 수행
