@@ -3,7 +3,7 @@ import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = '맨즈랩 OG 이미지';
+export const alt = 'guynote OG 이미지';
 
 export default function OgImage() {
   return new ImageResponse(

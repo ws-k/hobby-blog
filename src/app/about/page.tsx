@@ -79,7 +79,7 @@ export default function AboutPage() {
             광고, 제휴, 기타 문의사항이 있으시면 아래로 연락해 주세요.
           </p>
           <ul>
-            <li>이메일: contact@menslab.kr</li>
+            <li>이메일: contact@guynote.com</li>
           </ul>
         </div>
       </main>

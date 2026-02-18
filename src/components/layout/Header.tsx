@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { SITE_NAME } from '@/lib/constants';
 import { CATEGORIES } from '@/lib/categories';
 
 export default function Header() {
@@ -12,9 +11,13 @@ export default function Header() {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       {/* Top bar */}
-      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-gray-900">
-          {SITE_NAME}
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <Link
+          href="/"
+          className="text-[28px] tracking-tight text-gray-900"
+          style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontWeight: 600 }}
+        >
+          guynote
         </Link>
         <div className="flex items-center gap-3">
           <Link
