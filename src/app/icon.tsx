@@ -7,7 +7,7 @@ export const contentType = 'image/png';
 
 export default async function Icon() {
   const fontData = await readFile(
-    join(process.cwd(), 'src/assets/fonts/CormorantGaramond-Bold.ttf')
+    join(process.cwd(), 'src/assets/fonts/EBGaramond-Medium.ttf')
   );
 
   return new ImageResponse(
@@ -19,20 +19,22 @@ export default async function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#111827',
-          color: '#E8DFD0',
-          fontSize: 24,
-          fontWeight: 700,
-          fontFamily: 'Cormorant',
+          backgroundColor: '#f8f5f0',
+          borderRadius: '4px',
+          fontFamily: 'EBGaramond',
+          fontSize: 20,
+          fontWeight: 500,
         }}
       >
-        G
+        <span style={{ color: '#C9A84C' }}>[</span>
+        <span style={{ color: '#1a1a1a' }}>G</span>
+        <span style={{ color: '#C9A84C' }}>]</span>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: 'Cormorant', data: fontData.buffer, style: 'normal' as const, weight: 700 as const },
+        { name: 'EBGaramond', data: fontData.buffer, style: 'normal' as const, weight: 500 as const },
       ],
     }
   );

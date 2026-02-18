@@ -14,10 +14,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="text-[30px] tracking-[0.02em] text-gray-900"
-          style={{ fontFamily: 'var(--font-logo), Georgia, serif', fontWeight: 700 }}
+          className="text-[32px] tracking-[0.04em] text-gray-900"
+          style={{ fontFamily: 'var(--font-logo), Georgia, serif', fontWeight: 500 }}
         >
+          <span style={{ color: '#C9A84C' }}>[</span>
           GUYNOTE
+          <span style={{ color: '#C9A84C' }}>]</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link

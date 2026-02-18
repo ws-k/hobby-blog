@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond } from 'next/font/google';
+import { EB_Garamond } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { getBaseMetadata } from '@/lib/seo';
@@ -7,7 +7,7 @@ import { WebSiteJsonLd } from '@/components/seo/JsonLd';
 import { ADSENSE_CLIENT_ID, GA_MEASUREMENT_ID } from '@/lib/constants';
 import GA4Events from '@/components/analytics/GA4Events';
 
-const cormorant = Cormorant_Garamond({
+const ebGaramond = EB_Garamond({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-logo',
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={cormorant.variable}>
+    <html lang="ko" className={ebGaramond.variable}>
       <head>
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
