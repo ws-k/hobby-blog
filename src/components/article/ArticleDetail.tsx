@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ArticleWithHtml } from '@/types/article';
 import { getCategoryBySlug, getSubcategoryBySlug } from '@/lib/categories';
 import Badge from '@/components/ui/Badge';
@@ -60,16 +61,21 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
         </div>
       </header>
 
-      {/* Thumbnail */}
+      {/* Hero Image */}
       {article.thumbnail && (
-        <figure className="mb-8">
-          <img
-            src={article.thumbnail}
-            alt={article.thumbnailAlt || article.title}
-            className="w-full rounded-lg"
-          />
+        <figure className="mb-8 -mx-4 md:mx-0">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-none md:rounded-lg bg-gray-100">
+            <Image
+              src={article.thumbnail}
+              alt={article.thumbnailAlt || article.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
+          </div>
           {article.imageCredit && (
-            <figcaption className="text-xs text-gray-400 mt-2 text-right">
+            <figcaption className="text-xs text-gray-400 mt-2 text-right px-4 md:px-0">
               이미지: {article.imageCredit}
             </figcaption>
           )}
