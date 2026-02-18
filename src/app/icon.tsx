@@ -13,14 +13,16 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#2563eb',
-          borderRadius: '6px',
+          backgroundColor: '#111827',
+          borderRadius: '4px',
           color: '#fff',
-          fontSize: 20,
-          fontWeight: 800,
+          fontSize: 18,
+          fontWeight: 900,
+          letterSpacing: '-1px',
+          fontFamily: 'Georgia, serif',
         }}
       >
-        G
+        GN
       </div>
     ),
     { ...size }
