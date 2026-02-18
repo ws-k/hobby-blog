@@ -52,7 +52,7 @@ export default function Footer() {
             <Link href="/about" className="hover:text-white">
               소개
             </Link>
-            <Link href="/privacy" className="hover:text-white">
+            <Link href="/privacy" className="font-bold hover:text-white">
               개인정보처리방침
             </Link>
             <Link href="/feed" className="hover:text-white">
