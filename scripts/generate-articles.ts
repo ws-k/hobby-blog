@@ -1,16 +1,16 @@
 /**
  * AI 기사 자동 생성 스크립트
  *
- * RSS 피드에서 최신 뉴스를 수집하고, Claude API로 한국어 기사를 생성합니다.
+ * RSS 피드에서 최신 뉴스를 수집하고, Google Gemini API로 한국어 기사를 생성합니다.
  *
  * 사용법:
  *   npx tsx scripts/generate-articles.ts --count 10
  *
  * 환경 변수:
- *   ANTHROPIC_API_KEY - Anthropic API 키 (필수)
+ *   GEMINI_API_KEY - Google Gemini API 키 (필수)
  */
 
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import Parser from 'rss-parser';
 import fs from 'fs';
 import path from 'path';
@@ -110,16 +110,6 @@ const SUBCATEGORY_NAMES: Record<string, string> = {
 };
 
 // ── 유틸리티 ──────────────────────────────────────────
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 60);
-}
-
 function getExistingSlugs(): Set<string> {
   const contentDir = path.join(process.cwd(), 'content');
   const slugs = new Set<string>();
@@ -179,7 +169,7 @@ async function fetchFeeds(maxPerFeed = 5): Promise<FeedItem[]> {
         }
       }
       console.log(`  ✓ ${sourceName}: ${Math.min(result.items.length, maxPerFeed)}개`);
-    } catch (e) {
+    } catch {
       console.log(`  ✗ ${feed.url}: 피드 수집 실패`);
     }
   }
@@ -187,9 +177,9 @@ async function fetchFeeds(maxPerFeed = 5): Promise<FeedItem[]> {
   return items;
 }
 
-// ── Claude API로 기사 생성 ────────────────────────────
+// ── Gemini API로 기사 생성 ────────────────────────────
 async function generateArticle(
-  client: Anthropic,
+  model: ReturnType<InstanceType<typeof GoogleGenerativeAI>['getGenerativeModel']>,
   feedItem: FeedItem,
   existingSlugs: Set<string>
 ): Promise<{ slug: string; content: string } | null> {
@@ -258,17 +248,15 @@ featured: false
 - 한국 미출시 제품은 "국내 출시 여부는 미확인" 표기`;
 
   try {
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: prompt }],
-    });
-
-    const text = response.content[0].type === 'text' ? response.content[0].text : '';
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
     if (!text.includes('---')) return null;
 
+    // 마크다운 코드블록 제거 (Gemini가 가끔 ```로 감싸는 경우)
+    const cleaned = text.replace(/^```(?:markdown|yaml)?\n?/gm, '').replace(/^```$/gm, '').trim();
+
     // slug 추출
-    const slugMatch = text.match(/^slug:\s*"?([^"\n]+)"?/m);
+    const slugMatch = cleaned.match(/^slug:\s*"?([^"\n]+)"?/m);
     if (!slugMatch) return null;
     const slug = slugMatch[1].trim();
 
@@ -278,9 +266,9 @@ featured: false
       return null;
     }
 
-    return { slug, content: text.trim() };
+    return { slug, content: cleaned };
   } catch (e) {
-    console.error(`    Claude API 오류: ${(e as Error).message}`);
+    console.error(`    Gemini API 오류: ${(e as Error).message}`);
     return null;
   }
 }
@@ -291,16 +279,17 @@ async function main() {
   const countIndex = args.indexOf('--count');
   const count = countIndex !== -1 ? parseInt(args[countIndex + 1]) || 10 : 10;
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.error('오류: ANTHROPIC_API_KEY 환경 변수가 설정되지 않았습니다.');
+    console.error('오류: GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.');
     process.exit(1);
   }
 
-  const client = new Anthropic({ apiKey });
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   const existingSlugs = getExistingSlugs();
 
-  console.log(`\n📰 guynote 기사 자동 생성`);
+  console.log(`\n📰 guynote 기사 자동 생성 (Gemini)`);
   console.log(`  생성 목표: ${count}개`);
   console.log(`  기존 기사: ${existingSlugs.size}개\n`);
 
@@ -323,7 +312,7 @@ async function main() {
 
   for (const item of shuffled) {
     console.log(`  [${generated + 1}/${count}] ${item.title.slice(0, 50)}...`);
-    const result = await generateArticle(client, item, existingSlugs);
+    const result = await generateArticle(model, item, existingSlugs);
 
     if (result) {
       const filePath = saveArticle(item.category, result.slug, result.content);
@@ -334,8 +323,8 @@ async function main() {
       console.log(`    ✗ 생성 실패`);
     }
 
-    // API rate limit 방지
-    await new Promise((r) => setTimeout(r, 1000));
+    // Gemini free tier: 15 RPM → 4초 간격으로 안전하게
+    await new Promise((r) => setTimeout(r, 4000));
   }
 
   console.log(`\n✅ 완료: ${generated}개 기사 생성\n`);
