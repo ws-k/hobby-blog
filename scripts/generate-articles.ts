@@ -247,30 +247,41 @@ featured: false
 - 스펙과 수치는 원문 기반으로만 작성, 추측하지 않기
 - 한국 미출시 제품은 "국내 출시 여부는 미확인" 표기`;
 
-  try {
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    if (!text.includes('---')) return null;
+  // 429 에러 시 최대 3회 재시도 (지수 백오프)
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+      if (!text.includes('---')) return null;
 
-    // 마크다운 코드블록 제거 (Gemini가 가끔 ```로 감싸는 경우)
-    const cleaned = text.replace(/^```(?:markdown|yaml)?\n?/gm, '').replace(/^```$/gm, '').trim();
+      // 마크다운 코드블록 제거 (Gemini가 가끔 ```로 감싸는 경우)
+      const cleaned = text.replace(/^```(?:markdown|yaml)?\n?/gm, '').replace(/^```$/gm, '').trim();
 
-    // slug 추출
-    const slugMatch = cleaned.match(/^slug:\s*"?([^"\n]+)"?/m);
-    if (!slugMatch) return null;
-    const slug = slugMatch[1].trim();
+      // slug 추출
+      const slugMatch = cleaned.match(/^slug:\s*"?([^"\n]+)"?/m);
+      if (!slugMatch) return null;
+      const slug = slugMatch[1].trim();
 
-    // 중복 체크
-    if (existingSlugs.has(slug)) {
-      console.log(`    중복 slug 건너뜀: ${slug}`);
+      // 중복 체크
+      if (existingSlugs.has(slug)) {
+        console.log(`    중복 slug 건너뜀: ${slug}`);
+        return null;
+      }
+
+      return { slug, content: cleaned };
+    } catch (e) {
+      const msg = (e as Error).message;
+      if (msg.includes('429') && attempt < 2) {
+        const wait = (attempt + 1) * 15;
+        console.log(`    ⏳ Rate limit, ${wait}초 후 재시도 (${attempt + 1}/3)...`);
+        await new Promise((r) => setTimeout(r, wait * 1000));
+        continue;
+      }
+      console.error(`    Gemini API 오류: ${msg}`);
       return null;
     }
-
-    return { slug, content: cleaned };
-  } catch (e) {
-    console.error(`    Gemini API 오류: ${(e as Error).message}`);
-    return null;
   }
+  return null;
 }
 
 // ── 메인 ──────────────────────────────────────────────
@@ -323,8 +334,8 @@ async function main() {
       console.log(`    ✗ 생성 실패`);
     }
 
-    // Gemini free tier: 15 RPM → 4초 간격으로 안전하게
-    await new Promise((r) => setTimeout(r, 4000));
+    // Gemini free tier: 15 RPM → 6초 간격으로 안전하게
+    await new Promise((r) => setTimeout(r, 6000));
   }
 
   console.log(`\n✅ 완료: ${generated}개 기사 생성\n`);
