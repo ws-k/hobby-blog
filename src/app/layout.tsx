@@ -14,7 +14,12 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-export const metadata: Metadata = getBaseMetadata();
+export const metadata: Metadata = {
+  ...getBaseMetadata(),
+  verification: {
+    google: 'j2819kaZYoHw7AFPqZ3Cww0z4CUO1v0HFczuxEENmUA',
+  },
+};
 
 export default function RootLayout({
   children,
