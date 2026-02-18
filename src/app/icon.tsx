@@ -1,9 +1,15 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 export const size = { width: 32, height: 32 };
 export const contentType = 'image/png';
 
-export default function Icon() {
+export default async function Icon() {
+  const fontData = await readFile(
+    join(process.cwd(), 'src/assets/fonts/CormorantGaramond-Bold.ttf')
+  );
+
   return new ImageResponse(
     (
       <div
@@ -14,17 +20,20 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: '#111827',
-          borderRadius: '4px',
-          color: '#fff',
-          fontSize: 18,
-          fontWeight: 900,
-          letterSpacing: '-1px',
-          fontFamily: 'Georgia, serif',
+          color: '#E8DFD0',
+          fontSize: 24,
+          fontWeight: 700,
+          fontFamily: 'Cormorant',
         }}
       >
-        GN
+        G
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        { name: 'Cormorant', data: fontData.buffer, style: 'normal' as const, weight: 700 as const },
+      ],
+    }
   );
 }
