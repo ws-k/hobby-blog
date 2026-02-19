@@ -297,7 +297,7 @@ async function main() {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
   const existingSlugs = getExistingSlugs();
 
   console.log(`\n📰 guynote 기사 자동 생성 (Gemini)`);
