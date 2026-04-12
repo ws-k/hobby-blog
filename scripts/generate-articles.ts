@@ -283,10 +283,10 @@ featured: false
       // 마크다운 코드블록 제거 (모델이 가끔 ```로 감싸는 경우)
       const cleaned = text.replace(/^```(?:markdown|yaml)?\n?/gm, '').replace(/^```$/gm, '').trim();
 
-      // slug 추출
+      // slug 추출 및 정제 (영소문자, 숫자, 하이픈만 허용)
       const slugMatch = cleaned.match(/^slug:\s*"?([^"\n]+)"?/m);
       if (!slugMatch) return null;
-      const slug = slugMatch[1].trim();
+      const slug = slugMatch[1].trim().replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
 
       // 중복 체크
       if (existingSlugs.has(slug)) {
