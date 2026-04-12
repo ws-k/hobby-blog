@@ -177,6 +177,28 @@ async function fetchFeeds(maxPerFeed = 5): Promise<FeedItem[]> {
   return items;
 }
 
+// ── OG 이미지 추출 ───────────────────────────────────
+async function fetchOgImage(url: string): Promise<string> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html',
+      },
+    });
+    clearTimeout(timeout);
+    const html = await res.text();
+    const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+      ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    return match?.[1] ?? '';
+  } catch {
+    return '';
+  }
+}
+
 // ── Groq API로 기사 생성 ─────────────────────────────
 async function generateArticle(
   client: Groq,
@@ -329,10 +351,15 @@ async function main() {
     const result = await generateArticle(client, item, existingSlugs);
 
     if (result) {
-      const filePath = saveArticle(item.category, result.slug, result.content);
+      // OG 이미지 fetch 후 thumbnail 교체
+      const ogImage = await fetchOgImage(item.link);
+      const contentWithImage = ogImage
+        ? result.content.replace('thumbnail: ""', `thumbnail: "${ogImage}"`)
+        : result.content;
+      const filePath = saveArticle(item.category, result.slug, contentWithImage);
       existingSlugs.add(result.slug);
       generated++;
-      console.log(`    ✓ 저장: ${filePath}`);
+      console.log(`    ✓ 저장: ${filePath}${ogImage ? ' (이미지 있음)' : ''}`);
     } else {
       console.log(`    ✗ 생성 실패`);
     }
