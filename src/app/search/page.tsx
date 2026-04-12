@@ -15,11 +15,9 @@ function SearchResults() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!query) {
-      setResults([]);
-      return;
-    }
+    if (!query) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     fetch(`/api/search?q=${encodeURIComponent(query)}`)
       .then((res) => res.json())

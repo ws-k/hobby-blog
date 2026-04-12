@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 interface TocItem {
   id: string;
@@ -9,10 +9,7 @@ interface TocItem {
 }
 
 export default function TOC({ html }: { html: string }) {
-  const [headings, setHeadings] = useState<TocItem[]>([]);
-  const [activeId, setActiveId] = useState('');
-
-  useEffect(() => {
+  const headings = useMemo<TocItem[]>(() => {
     const matches = html.matchAll(/<h([23])\s+id="([^"]*)"[^>]*>(.*?)<\/h[23]>/gi);
     const items: TocItem[] = [];
     for (const match of matches) {
@@ -22,8 +19,9 @@ export default function TOC({ html }: { html: string }) {
         text: match[3].replace(/<[^>]+>/g, ''),
       });
     }
-    setHeadings(items);
+    return items;
   }, [html]);
+  const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
