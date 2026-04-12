@@ -1,16 +1,16 @@
 /**
  * AI 기사 자동 생성 스크립트
  *
- * RSS 피드에서 최신 뉴스를 수집하고, Google Gemini API로 한국어 기사를 생성합니다.
+ * RSS 피드에서 최신 뉴스를 수집하고, Groq API로 한국어 기사를 생성합니다.
  *
  * 사용법:
  *   npx tsx scripts/generate-articles.ts --count 10
  *
  * 환경 변수:
- *   GEMINI_API_KEY - Google Gemini API 키 (필수)
+ *   GROQ_API_KEY - Groq API 키 (필수)
  */
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
 import Parser from 'rss-parser';
 import fs from 'fs';
 import path from 'path';
@@ -177,9 +177,9 @@ async function fetchFeeds(maxPerFeed = 5): Promise<FeedItem[]> {
   return items;
 }
 
-// ── Gemini API로 기사 생성 ────────────────────────────
+// ── Groq API로 기사 생성 ─────────────────────────────
 async function generateArticle(
-  model: ReturnType<InstanceType<typeof GoogleGenerativeAI>['getGenerativeModel']>,
+  client: Groq,
   feedItem: FeedItem,
   existingSlugs: Set<string>
 ): Promise<{ slug: string; content: string } | null> {
@@ -250,11 +250,15 @@ featured: false
   // 429 에러 시 최대 3회 재시도 (지수 백오프)
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const result = await model.generateContent(prompt);
-      const text = result.response.text();
-      if (!text.includes('---')) return null;
+      const response = await client.chat.completions.create({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 2048,
+      });
+      const text = response.choices[0].message.content;
+      if (!text || !text.includes('---')) return null;
 
-      // 마크다운 코드블록 제거 (Gemini가 가끔 ```로 감싸는 경우)
+      // 마크다운 코드블록 제거 (모델이 가끔 ```로 감싸는 경우)
       const cleaned = text.replace(/^```(?:markdown|yaml)?\n?/gm, '').replace(/^```$/gm, '').trim();
 
       // slug 추출
@@ -277,7 +281,7 @@ featured: false
         await new Promise((r) => setTimeout(r, wait * 1000));
         continue;
       }
-      console.error(`    Gemini API 오류: ${msg}`);
+      console.error(`    Groq API 오류: ${msg}`);
       return null;
     }
   }
@@ -290,17 +294,16 @@ async function main() {
   const countIndex = args.indexOf('--count');
   const count = countIndex !== -1 ? parseInt(args[countIndex + 1]) || 10 : 10;
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    console.error('오류: GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.');
+    console.error('오류: GROQ_API_KEY 환경 변수가 설정되지 않았습니다.');
     process.exit(1);
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+  const client = new Groq({ apiKey });
   const existingSlugs = getExistingSlugs();
 
-  console.log(`\n📰 guynote 기사 자동 생성 (Gemini)`);
+  console.log(`\n📰 guynote 기사 자동 생성 (Groq)`);
   console.log(`  생성 목표: ${count}개`);
   console.log(`  기존 기사: ${existingSlugs.size}개\n`);
 
@@ -323,7 +326,7 @@ async function main() {
 
   for (const item of shuffled) {
     console.log(`  [${generated + 1}/${count}] ${item.title.slice(0, 50)}...`);
-    const result = await generateArticle(model, item, existingSlugs);
+    const result = await generateArticle(client, item, existingSlugs);
 
     if (result) {
       const filePath = saveArticle(item.category, result.slug, result.content);
@@ -334,8 +337,8 @@ async function main() {
       console.log(`    ✗ 생성 실패`);
     }
 
-    // Gemini free tier: 15 RPM → 6초 간격으로 안전하게
-    await new Promise((r) => setTimeout(r, 6000));
+    // Groq: 요청 간격 2초
+    await new Promise((r) => setTimeout(r, 2000));
   }
 
   console.log(`\n✅ 완료: ${generated}개 기사 생성\n`);
