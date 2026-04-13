@@ -66,7 +66,8 @@ export function getArticlesBySubcategory(
 }
 
 export function getFeaturedArticles(): Article[] {
-  return getAllArticles().filter((a) => a.featured);
+  // Return recent articles with thumbnails (auto-refreshes as new articles are added)
+  return getAllArticles().filter((a) => a.thumbnail).slice(0, 10);
 }
 
 export function getRecentArticles(count: number): Article[] {
