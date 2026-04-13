@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "ai-software"
 contentType: "news"
 description: "Kalshi 아리조나 형사 사건에서 일시 중지 승소"
-thumbnail: ""
+thumbnail: "https://techcrunch.com/wp-content/uploads/2026/03/GettyImages-2237779170.jpg?resize=1200,800"
 thumbnailAlt: ""
 tags: ["Kalshi", "아리조나 형사 사건", "일시 중지", "테크뉴스", "AI 소프트웨어"]
 source: "TechCrunch"

@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "ai-software"
 contentType: "news"
 description: "Nvidia와 함께 한 SiFive가 오픈 AI 칩으로 3.65억 달러 기업가치 달성"
-thumbnail: ""
+thumbnail: "https://techcrunch.com/wp-content/uploads/2026/01/jensen-ces-2026-getty.jpg?resize=1200,800"
 thumbnailAlt: ""
 tags: ["Nvidia", "SiFive", "오픈 AI 칩", "AI 소프트웨어", "테크 뉴스"]
 source: "TechCrunch"

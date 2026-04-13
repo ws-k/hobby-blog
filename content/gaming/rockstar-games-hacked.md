@@ -6,7 +6,7 @@ category: "gaming"
 subcategory: "console"
 contentType: "news"
 description: "록스타 게임스 해킹, 대규모 데이터 유출 위협"
-thumbnail: ""
+thumbnail: "https://kotaku.com/app/uploads/2026/04/gta5hack-1200x675.jpg"
 thumbnailAlt: ""
 tags: ["록스타 게임스", "하acking", "데이터 유출", "GTA 6", "콘솔 게임"]
 source: "Kotaku"

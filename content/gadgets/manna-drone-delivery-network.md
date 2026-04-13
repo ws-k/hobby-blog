@@ -6,7 +6,7 @@ category: "gadgets"
 subcategory: "drones"
 contentType: "news"
 description: "マン나, 드론 배달 네트워크 확장"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/dronedj.com/wp-content/uploads/sites/2/2026/04/manna-drone-delivery-us-funding.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["드론 배달", "마나", "드론 기술", "배달 로봇", "미래 기술"]
 source: "DroneDJ"

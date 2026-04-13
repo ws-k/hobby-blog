@@ -6,7 +6,7 @@ category: "gaming"
 subcategory: "console"
 contentType: "news"
 description: "트럼프와 FAA는 에어 트래픽 컨트롤러 부족 문제를 해결하기 위해 게이머들을 노리고 있다."
-thumbnail: ""
+thumbnail: "https://kotaku.com/app/uploads/2026/04/gamersatc-1200x675.jpg"
 thumbnailAlt: ""
 tags: ["트럼프", "FAA", "에어 트래픽 컨트롤러", "게이머", "부족 해결"]
 source: "Kotaku"

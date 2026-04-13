@@ -6,7 +6,7 @@ category: "auto"
 subcategory: "ev"
 contentType: "news"
 description: "테슬라 전기차 보급형 모델 출시 및 취소, FSD v15 업데이트와 리비안 R2 EPA 사양"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2017/12/business_card-1.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["테슬라", "전기차", "리비안", "FSD", "보급형 전기차"]
 source: "Electrek"

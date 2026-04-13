@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smartphones"
 contentType: "news"
 description: "구글 AI 플러스 프로 및 울트라 기능에 대한 정보"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/9to5google.com/wp-content/uploads/sites/4/2025/10/Google-One-AI-plans.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["구글 AI", "플러스 프로 울트라", "스마트폰", "구글 AI 가격", "구글 AI 출시일"]
 source: "9to5Google"

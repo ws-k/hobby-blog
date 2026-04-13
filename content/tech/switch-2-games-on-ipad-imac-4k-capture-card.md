@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smartphones"
 contentType: "news"
 description: "스위치 2 게임을 iPad나 iMac에서 4K로 즐길 수 있는 새로운 액세서리 등장"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2026/04/MG_3572.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["스위치 2", "iPad", "iMac", "4K 캡처 카드", "게임"]
 source: "9to5Mac"

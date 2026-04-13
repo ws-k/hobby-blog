@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "ai-software"
 contentType: "news"
 description: "나사 아르테미스 2호가 태평양에 무사히 착수"
-thumbnail: ""
+thumbnail: "https://techcrunch.com/wp-content/uploads/2026/04/artemis-II-Getty.jpg?resize=1200,800"
 thumbnailAlt: ""
 tags: ["나사", "아르테미스", "달 착륙", "우주 탐사", "나사 아르테미스 2호"]
 source: "TechCrunch"

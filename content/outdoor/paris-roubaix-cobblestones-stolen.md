@@ -6,7 +6,7 @@ category: "outdoor"
 subcategory: "hiking"
 contentType: "news"
 description: "파리-루베 자갈 도로窃奪, 자갈 도로의 역사"
-thumbnail: ""
+thumbnail: "https://cdn.outsideonline.com/wp-content/uploads/2026/04/Roubaix1.jpg"
 thumbnailAlt: ""
 tags: ["파리-루베", "자갈 도로", "자전거", " 등산", "아웃도어"]
 source: "Outside Online"

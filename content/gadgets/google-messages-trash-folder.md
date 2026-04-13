@@ -6,7 +6,7 @@ category: "gadgets"
 subcategory: "audio"
 contentType: "news"
 description: "구글 메시지에 새로운 쓰레기 폴더 기능이 추가되었습니다. 이는 사용자들이 중요하지 않은 채팅을 따로 관리할 수 있도록 도와줍니다."
-thumbnail: ""
+thumbnail: "https://www.digitaltrends.com/tachyon/2026/04/Google-Messages-gets-a-Trash-Bin-3.jpg?resize=1200%2C630"
 thumbnailAlt: ""
 tags: ["구글 메시지", "쓰레기 폴더", "채팅 관리", " 안드로이드", "구글 서비스"]
 source: "Digital Trends"

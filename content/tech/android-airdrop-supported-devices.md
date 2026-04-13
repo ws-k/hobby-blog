@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smartphones"
 contentType: "news"
 description: "안드로이드 에어드롭 지원 스마트폰 목록, 아이폰과 맥과의 공유"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/9to5google.com/wp-content/uploads/sites/4/2025/11/airdrop-quick-share-pixel-10.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["안드로이드 에어드롭", "아이폰", "맥", "스마트폰", "공유"]
 source: "9to5Google"

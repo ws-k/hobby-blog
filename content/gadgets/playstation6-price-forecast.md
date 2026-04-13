@@ -6,7 +6,7 @@ category: "gadgets"
 subcategory: "audio"
 contentType: "news"
 description: "플스6 가격, 출시 관련最新 소식"
-thumbnail: ""
+thumbnail: "https://www.digitaltrends.com/tachyon/2026/04/Sony-Playstation-PS-Logo.jpg?resize=1200%2C630"
 thumbnailAlt: ""
 tags: ["playstation6", "플스6", "소니", "게임기", "콘솔"]
 source: "Digital Trends"

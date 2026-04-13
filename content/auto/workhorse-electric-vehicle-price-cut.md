@@ -6,7 +6,7 @@ category: "auto"
 subcategory: "ev"
 contentType: "news"
 description: "웍하우스, 전기차 가격 6만달러 인하, 푸롤레이터 100대 구매"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2026/04/workhorse_sale_MAIN.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["전기차", "웍하우스", "푸롤레이터", "가격 인하", "전자車"]
 source: "Electrek"

@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smartphones"
 contentType: "news"
 description: "애플의 에어팟 프로 3, 업그레이드의 가치는?"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2025/11/airpods-pro-3-ear.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["에어팟 프로 3", "アップ그레이드", "스마트폰 액세서리", "애플 제품", "무선 이어폰"]
 source: "9to5Mac"

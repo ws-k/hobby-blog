@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smartphones"
 contentType: "news"
 description: "구글 픽셀 Gemini의 최신 소식과 스펙 정보"
-thumbnail: ""
+thumbnail: "https://i0.wp.com/9to5google.com/wp-content/uploads/sites/4/2024/03/Pixelated-cover.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"
 thumbnailAlt: ""
 tags: ["구글 픽셀", "Gemini", "스마트폰", "테크 뉴스", "공기계"]
 source: "9to5Google"

@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "laptops-pc"
 contentType: "news"
 description: "Thermal Grizzly Deltamate GPU 블록이 ROG Astral RTX 5080의 온도를 20도ลด린다"
-thumbnail: ""
+thumbnail: "https://cdn.wccftech.com/wp-content/uploads/2026/04/Deltamate-ROG-Astral-RTX-5080.jpg"
 thumbnailAlt: ""
 tags: ["게이밍 노트북", "ROG Astral RTX 5080", "Thermal Grizzly Deltamate", "GPU 블록", "냉각 시스템"]
 source: "Wccftech"

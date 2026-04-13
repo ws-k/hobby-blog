@@ -6,7 +6,7 @@ category: "tech"
 subcategory: "smart-tv"
 contentType: "news"
 description: "Hisense UR9, RGB LED TV로 OLED에 도전"
-thumbnail: ""
+thumbnail: "https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/268446_Hisense_UR9_RGB_LED_TV_review_JHIGGINS1.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200"
 thumbnailAlt: ""
 tags: ["Hisense UR9", "OLED TV", "RGB LED TV", "스마트 TV", "4K TV"]
 source: "The Verge"

@@ -6,7 +6,7 @@ category: "gaming"
 subcategory: "pc-games"
 contentType: "news"
 description: "데드 오어 얼라이브의 제작자가 LAPD에 총포점에 들렸던 사연"
-thumbnail: ""
+thumbnail: "https://cdn.mos.cms.futurecdn.net/X7TrHWN3qXNJBYm2DsdWhV-1280-80.jpg"
 thumbnailAlt: ""
 tags: ["데드 오어 얼라이브", "LAPD", "총포점", "생생한 상황", "게임 개발"]
 source: "PCGamer latest"
